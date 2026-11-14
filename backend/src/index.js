@@ -6,7 +6,7 @@ import cors from "cors";
 import "dotenv/config.js";
 import fs from "fs";
 import path from "path";
-
+import job from "./lib/cron.js";
 import User from "./models/user.model.js";
 import connectDBS from "./lib/db.js";
 
@@ -39,4 +39,8 @@ if (fs.existsSync(publicDir)) {
 app.listen(PORT, () => {
   connectDBS(); // Call the connectDB function to establish a database connection
   console.log(`Server is running on port ${PORT}`);
+
+  if (process.env.NODE_ENV == "production") {
+    job.start();
+  }
 });
