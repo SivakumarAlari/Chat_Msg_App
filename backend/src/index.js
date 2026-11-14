@@ -9,6 +9,7 @@ import path from "path";
 import job from "./lib/cron.js";
 import clerkWebhook from "./webhooks/clerk.webhook.js";
 import authRoutes from "./routes/auth.route.js";
+import messageRoutes from "./routes/message.route.js";
 import User from "./models/user.model.js";
 import connectDBS from "./lib/db.js";
 
@@ -36,6 +37,8 @@ app.get("/health", (req, res) => {
 });
 
 app.use("/app/auth", authRoutes);
+app.use("/app/messages", messageRoutes); // upload to the upload middleware
+
 //if the public directory exists serve the static files
 //this is for the production build
 
