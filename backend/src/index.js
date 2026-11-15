@@ -1,6 +1,5 @@
-// const express = require("express");
-
 import express from "express";
+
 import { clerkMiddleware } from "@clerk/express";
 import cors from "cors";
 import "dotenv/config.js";
@@ -10,10 +9,9 @@ import job from "./lib/cron.js";
 import clerkWebhook from "./webhooks/clerk.webhook.js";
 import authRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/message.route.js";
+import { app, server } from "./lib/socket.js";
 import User from "./models/user.model.js";
 import connectDBS from "./lib/db.js";
-
-const app = express();
 
 const PORT = process.env.PORT;
 const FRONTEND_URL = process.env.FRONTEND_URL;
@@ -49,7 +47,7 @@ if (fs.existsSync(publicDir)) {
   });
 }
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   connectDBS(); // Call the connectDB function to establish a database connection
   console.log(`Server is running on port ${PORT}`);
 
